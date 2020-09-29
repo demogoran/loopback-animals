@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  server:
+    build: ./server
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/server
+  client:
+    build: ./client
+    ports:
+      - "4200:4200"
+    volumes:
+      - .:/client
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=bobby
+      - POSTGRES_PASSWORD=dobby
+      - POSTGRES_DB=animals
