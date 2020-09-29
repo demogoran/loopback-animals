@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasOne} from '@loopback/repository';
+import {Species} from './species.model';
 
 @model()
 export class Animal extends Entity {
@@ -8,17 +9,14 @@ export class Animal extends Entity {
     type: 'date',
   })
   birthday?: string;
-
-  @property({
-    type: 'number',
-  })
-  species: number;
-
   @property({
     type: 'boolean',
     default: false,
   })
   vaccinated?: boolean;
+
+  @hasOne(() => Species, {keyTo: 'id'})
+  species: Species;
 
   constructor(data?: Partial<Animal>) {
     super(data);
