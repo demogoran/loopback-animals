@@ -1,8 +1,19 @@
-import {model, property} from '@loopback/repository';
+import {model, property, hasOne} from '@loopback/repository';
 import {Animal} from '.';
+import {Owner} from './owner.model';
 
 @model()
 export class Pet extends Animal {
+  @property({
+    type: 'number',
+    id: true,
+    generated: true,
+  })
+  id?: number;
+
+  @hasOne(() => Owner, {keyTo: 'id'})
+  owner: Owner;
+
   constructor(data?: Partial<Pet>) {
     super(data);
   }

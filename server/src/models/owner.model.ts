@@ -4,17 +4,17 @@ import {Address} from './address.model';
 @model()
 export class Owner extends Entity {
   @property({
-    type: 'string',
-    required: true,
-  })
-  fullName: string;
-
-  @property({
     type: 'number',
     id: true,
     generated: true,
   })
   id?: number;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  fullName: string;
 
   @hasOne(() => Address, {keyTo: 'id'})
   address: Address;
