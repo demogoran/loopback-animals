@@ -7,7 +7,7 @@ export class Pet extends Animal {
   @hasOne(() => Owner, {keyTo: 'id'})
   owner: Owner;
 
-  constructor(data?: Partial<Animal>) {
+  constructor(data?: Partial<Pet>) {
     super(data);
   }
 }
