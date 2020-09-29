@@ -4,16 +4,24 @@ services:
     build: ./server
     ports:
       - "3000:3000"
+    depends_on:
+      - postgres
+    links:
+      - postgres
     volumes:
-      - .:/server
+      - ./server:/home/node/app
+      - /home/node/app/node_modules
   client:
     build: ./client
     ports:
       - "4200:4200"
+      - "49153:49153"
     volumes:
-      - .:/client
-  db:
+      - ./client:/usr/src/app
+      - /usr/src/app/node_modules
+  postgres:
     image: postgres
+    container_name: postgres
     environment:
       - POSTGRES_USER=bobby
       - POSTGRES_PASSWORD=dobby
