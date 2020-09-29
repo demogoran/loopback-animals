@@ -3,7 +3,6 @@ import {Animal} from '.';
 
 @model()
 export class Pet extends Animal {
-
   constructor(data?: Partial<Pet>) {
     super(data);
   }

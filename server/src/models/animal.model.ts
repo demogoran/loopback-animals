@@ -3,7 +3,12 @@ import {Species} from './species.model';
 
 @model()
 export class Animal extends Entity {
-  @property({id: true}) id: string;
+  @property({
+    type: 'number',
+    id: true,
+    generated: true,
+  })
+  id?: number;
 
   @property({
     type: 'date',

@@ -15,16 +15,13 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  Animal,
-  Species,
-} from '../models';
+import {Animal, Species} from '../models';
 import {AnimalRepository} from '../repositories';
 
 export class AnimalSpeciesController {
   constructor(
     @repository(AnimalRepository) protected animalRepository: AnimalRepository,
-  ) { }
+  ) {}
 
   @get('/animals/{id}/species', {
     responses: {
@@ -39,7 +36,7 @@ export class AnimalSpeciesController {
     },
   })
   async get(
-    @param.path.string('id') id: string,
+    @param.path.string('id') id: number,
     @param.query.object('filter') filter?: Filter<Species>,
   ): Promise<Species> {
     return this.animalRepository.species(id).get(filter);
@@ -61,11 +58,12 @@ export class AnimalSpeciesController {
           schema: getModelSchemaRef(Species, {
             title: 'NewSpeciesInAnimal',
             exclude: ['id'],
-            optional: ['id']
+            optional: ['id'],
           }),
         },
       },
-    }) species: Omit<Species, 'id'>,
+    })
+    species: Omit<Species, 'id'>,
   ): Promise<Species> {
     return this.animalRepository.species(id).create(species);
   }
@@ -79,7 +77,7 @@ export class AnimalSpeciesController {
     },
   })
   async patch(
-    @param.path.string('id') id: string,
+    @param.path.string('id') id: number,
     @requestBody({
       content: {
         'application/json': {
@@ -88,7 +86,8 @@ export class AnimalSpeciesController {
       },
     })
     species: Partial<Species>,
-    @param.query.object('where', getWhereSchemaFor(Species)) where?: Where<Species>,
+    @param.query.object('where', getWhereSchemaFor(Species))
+    where?: Where<Species>,
   ): Promise<Count> {
     return this.animalRepository.species(id).patch(species, where);
   }
@@ -102,8 +101,9 @@ export class AnimalSpeciesController {
     },
   })
   async delete(
-    @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(Species)) where?: Where<Species>,
+    @param.path.string('id') id: number,
+    @param.query.object('where', getWhereSchemaFor(Species))
+    where?: Where<Species>,
   ): Promise<Count> {
     return this.animalRepository.species(id).delete(where);
   }

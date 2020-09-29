@@ -2,7 +2,12 @@ import {Entity, model, property} from '@loopback/repository';
 
 @model()
 export class Species extends Entity {
-  @property({id: true}) id: string;
+  @property({
+    type: 'number',
+    id: true,
+    generated: true,
+  })
+  id?: number;
 
   @property({
     type: 'date',
